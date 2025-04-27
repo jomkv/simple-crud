@@ -10,7 +10,11 @@ export class UsersService {
     return this.prisma.user.create({ data: newUser });
   }
 
-  getUser() {}
+  getUsers() {
+    return this.prisma.user.findMany();
+  }
 
-  getUserById() {}
+  getUserById(userId: number) {
+    return this.prisma.user.findUnique({ where: { id: userId } });
+  }
 }
