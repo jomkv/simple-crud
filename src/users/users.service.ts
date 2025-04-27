@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { Prisma } from 'generated/prisma';
+import { HttpException, Injectable } from '@nestjs/common';
+import { Prisma, User } from 'generated/prisma';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -10,11 +10,31 @@ export class UsersService {
     return this.prisma.user.create({ data: newUser });
   }
 
-  getUsers() {
+  getUsers(): Promise<User[]> {
     return this.prisma.user.findMany();
   }
 
-  getUserById(userId: number) {
+  getUserById(userId: number): Promise<User | null> {
     return this.prisma.user.findUnique({ where: { id: userId } });
+  }
+
+  async updateUserById(userId: number, updatedUser: Prisma.UserUpdateInput) {
+    const user = await this.getUserById(userId);
+
+    if (!user) throw new HttpException('User not Found', 404);
+
+    if (updatedUser.username) {
+      const isUsernameTaken = await this.prisma.user.findUnique({
+        where: { username: updatedUser.username as string },
+      });
+
+      if (isUsernameTaken)
+        throw new HttpException('Username already taken', 400);
+    }
+
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: updatedUser,
+    });
   }
 }
