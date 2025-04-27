@@ -14,6 +14,8 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { UserExistsPipe } from './pipes/user-exists.pipe';
+import { User } from 'generated/prisma';
 
 @Controller('users')
 export class UsersController {
@@ -31,11 +33,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  async getUser(@Param('id', ParseIntPipe) id: number) {
-    const user = await this.usersService.getUserById(id);
-
-    if (!user) throw new HttpException('User not found', 404);
-
+  async getUser(@Param('id', ParseIntPipe, UserExistsPipe) user: User) {
     return user;
   }
 
@@ -43,13 +41,13 @@ export class UsersController {
   @UsePipes(ValidationPipe)
   updateUser(
     @Body() updateUserDto: UpdateUserDto,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe, UserExistsPipe) user: User,
   ) {
-    return this.usersService.updateUserById(id, updateUserDto);
+    return this.usersService.updateUserById(user.id, updateUserDto);
   }
 
   @Delete(':id')
-  deleteUser(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.deleteUserById(id);
+  deleteUser(@Param('id', ParseIntPipe, UserExistsPipe) user: User) {
+    return this.usersService.deleteUserById(user.id);
   }
 }

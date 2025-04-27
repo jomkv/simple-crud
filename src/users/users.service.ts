@@ -19,10 +19,6 @@ export class UsersService {
   }
 
   async deleteUserById(userId: number): Promise<User> {
-    const user = await this.getUserById(userId);
-
-    if (!user) throw new HttpException('User not found', 404);
-
     return this.prisma.user.delete({ where: { id: userId } });
   }
 
@@ -30,10 +26,6 @@ export class UsersService {
     userId: number,
     updatedUser: Prisma.UserUpdateInput,
   ): Promise<User> {
-    const user = await this.getUserById(userId);
-
-    if (!user) throw new HttpException('User not found', 404);
-
     if (updatedUser.username) {
       const isUsernameTaken = await this.prisma.user.findUnique({
         where: { username: updatedUser.username as string },
