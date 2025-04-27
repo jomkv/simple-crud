@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   Param,
@@ -33,7 +34,7 @@ export class UsersController {
   async getUser(@Param('id', ParseIntPipe) id: number) {
     const user = await this.usersService.getUserById(id);
 
-    if (!user) throw new HttpException('User Not Found', 404);
+    if (!user) throw new HttpException('User not found', 404);
 
     return user;
   }
@@ -45,5 +46,10 @@ export class UsersController {
     @Param('id', ParseIntPipe) id: number,
   ) {
     return this.usersService.updateUserById(id, updateUserDto);
+  }
+
+  @Delete(':id')
+  deleteUser(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.deleteUserById(id);
   }
 }
