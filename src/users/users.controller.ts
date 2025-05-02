@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpException,
   Param,
   ParseIntPipe,
   Patch,
@@ -16,6 +15,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserExistsPipe } from './pipes/user-exists.pipe';
 import { User } from 'generated/prisma';
+import { UpdateSettingsDto } from './dtos/update-setting.dto';
 
 @Controller('users')
 export class UsersController {
@@ -49,5 +49,14 @@ export class UsersController {
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe, UserExistsPipe) user: User) {
     return this.usersService.deleteUserById(user.id);
+  }
+
+  @Patch(':id/settings')
+  @UsePipes(ValidationPipe)
+  updateUserSettings(
+    @Body() newUserSettings: UpdateSettingsDto,
+    @Param('id', ParseIntPipe, UserExistsPipe) user: User,
+  ) {
+    // TODO
   }
 }
