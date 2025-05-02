@@ -1233,6 +1233,7 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     displayName?: boolean
+    userSetting?: boolean | User$userSettingArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1254,10 +1255,17 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "displayName", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userSetting?: boolean | User$userSettingArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      userSetting: Prisma.$UserSettingPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       username: string
@@ -1656,6 +1664,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    userSetting<T extends User$userSettingArgs<ExtArgs> = {}>(args?: Subset<T, User$userSettingArgs<ExtArgs>>): Prisma__UserSettingClient<$Result.GetResult<Prisma.$UserSettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1705,6 +1714,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1723,6 +1736,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1740,6 +1757,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1789,6 +1810,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1837,6 +1862,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1879,6 +1908,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -1927,6 +1960,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1994,6 +2031,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -2020,6 +2061,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -2040,6 +2085,25 @@ export namespace Prisma {
   }
 
   /**
+   * User.userSetting
+   */
+  export type User$userSettingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSetting
+     */
+    select?: UserSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSetting
+     */
+    omit?: UserSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
+    where?: UserSettingWhereInput
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2051,6 +2115,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -2068,56 +2136,66 @@ export namespace Prisma {
 
   export type UserSettingAvgAggregateOutputType = {
     id: number | null
+    userId: number | null
   }
 
   export type UserSettingSumAggregateOutputType = {
     id: number | null
+    userId: number | null
   }
 
   export type UserSettingMinAggregateOutputType = {
     id: number | null
     notificationsOn: boolean | null
     smsOn: boolean | null
+    userId: number | null
   }
 
   export type UserSettingMaxAggregateOutputType = {
     id: number | null
     notificationsOn: boolean | null
     smsOn: boolean | null
+    userId: number | null
   }
 
   export type UserSettingCountAggregateOutputType = {
     id: number
     notificationsOn: number
     smsOn: number
+    userId: number
     _all: number
   }
 
 
   export type UserSettingAvgAggregateInputType = {
     id?: true
+    userId?: true
   }
 
   export type UserSettingSumAggregateInputType = {
     id?: true
+    userId?: true
   }
 
   export type UserSettingMinAggregateInputType = {
     id?: true
     notificationsOn?: true
     smsOn?: true
+    userId?: true
   }
 
   export type UserSettingMaxAggregateInputType = {
     id?: true
     notificationsOn?: true
     smsOn?: true
+    userId?: true
   }
 
   export type UserSettingCountAggregateInputType = {
     id?: true
     notificationsOn?: true
     smsOn?: true
+    userId?: true
     _all?: true
   }
 
@@ -2211,6 +2289,7 @@ export namespace Prisma {
     id: number
     notificationsOn: boolean
     smsOn: boolean
+    userId: number
     _count: UserSettingCountAggregateOutputType | null
     _avg: UserSettingAvgAggregateOutputType | null
     _sum: UserSettingSumAggregateOutputType | null
@@ -2236,35 +2315,54 @@ export namespace Prisma {
     id?: boolean
     notificationsOn?: boolean
     smsOn?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userSetting"]>
 
   export type UserSettingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     notificationsOn?: boolean
     smsOn?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userSetting"]>
 
   export type UserSettingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     notificationsOn?: boolean
     smsOn?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userSetting"]>
 
   export type UserSettingSelectScalar = {
     id?: boolean
     notificationsOn?: boolean
     smsOn?: boolean
+    userId?: boolean
   }
 
-  export type UserSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "notificationsOn" | "smsOn", ExtArgs["result"]["userSetting"]>
+  export type UserSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "notificationsOn" | "smsOn" | "userId", ExtArgs["result"]["userSetting"]>
+  export type UserSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserSettingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserSettingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $UserSettingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserSetting"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       notificationsOn: boolean
       smsOn: boolean
+      userId: number
     }, ExtArgs["result"]["userSetting"]>
     composites: {}
   }
@@ -2659,6 +2757,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserSettingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2691,6 +2790,7 @@ export namespace Prisma {
     readonly id: FieldRef<"UserSetting", 'Int'>
     readonly notificationsOn: FieldRef<"UserSetting", 'Boolean'>
     readonly smsOn: FieldRef<"UserSetting", 'Boolean'>
+    readonly userId: FieldRef<"UserSetting", 'Int'>
   }
     
 
@@ -2707,6 +2807,10 @@ export namespace Prisma {
      * Omit specific fields from the UserSetting
      */
     omit?: UserSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
     /**
      * Filter, which UserSetting to fetch.
      */
@@ -2726,6 +2830,10 @@ export namespace Prisma {
      */
     omit?: UserSettingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
+    /**
      * Filter, which UserSetting to fetch.
      */
     where: UserSettingWhereUniqueInput
@@ -2743,6 +2851,10 @@ export namespace Prisma {
      * Omit specific fields from the UserSetting
      */
     omit?: UserSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
     /**
      * Filter, which UserSetting to fetch.
      */
@@ -2792,6 +2904,10 @@ export namespace Prisma {
      */
     omit?: UserSettingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
+    /**
      * Filter, which UserSetting to fetch.
      */
     where?: UserSettingWhereInput
@@ -2840,6 +2956,10 @@ export namespace Prisma {
      */
     omit?: UserSettingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
+    /**
      * Filter, which UserSettings to fetch.
      */
     where?: UserSettingWhereInput
@@ -2883,9 +3003,13 @@ export namespace Prisma {
      */
     omit?: UserSettingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
+    /**
      * The data needed to create a UserSetting.
      */
-    data?: XOR<UserSettingCreateInput, UserSettingUncheckedCreateInput>
+    data: XOR<UserSettingCreateInput, UserSettingUncheckedCreateInput>
   }
 
   /**
@@ -2916,6 +3040,10 @@ export namespace Prisma {
      */
     data: UserSettingCreateManyInput | UserSettingCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2930,6 +3058,10 @@ export namespace Prisma {
      * Omit specific fields from the UserSetting
      */
     omit?: UserSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
     /**
      * The data needed to update a UserSetting.
      */
@@ -2982,6 +3114,10 @@ export namespace Prisma {
      * Limit how many UserSettings to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2996,6 +3132,10 @@ export namespace Prisma {
      * Omit specific fields from the UserSetting
      */
     omit?: UserSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
     /**
      * The filter to search for the UserSetting to update in case it exists.
      */
@@ -3022,6 +3162,10 @@ export namespace Prisma {
      * Omit specific fields from the UserSetting
      */
     omit?: UserSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
     /**
      * Filter which UserSetting to delete.
      */
@@ -3054,6 +3198,10 @@ export namespace Prisma {
      * Omit specific fields from the UserSetting
      */
     omit?: UserSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSettingInclude<ExtArgs> | null
   }
 
 
@@ -4086,7 +4234,8 @@ export namespace Prisma {
   export const UserSettingScalarFieldEnum: {
     id: 'id',
     notificationsOn: 'notificationsOn',
-    smsOn: 'smsOn'
+    smsOn: 'smsOn',
+    userId: 'userId'
   };
 
   export type UserSettingScalarFieldEnum = (typeof UserSettingScalarFieldEnum)[keyof typeof UserSettingScalarFieldEnum]
@@ -4189,12 +4338,14 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     username?: StringFilter<"User"> | string
     displayName?: StringNullableFilter<"User"> | string | null
+    userSetting?: XOR<UserSettingNullableScalarRelationFilter, UserSettingWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     username?: SortOrder
     displayName?: SortOrderInput | SortOrder
+    userSetting?: UserSettingOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -4204,6 +4355,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     displayName?: StringNullableFilter<"User"> | string | null
+    userSetting?: XOR<UserSettingNullableScalarRelationFilter, UserSettingWhereInput> | null
   }, "id" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -4233,27 +4385,34 @@ export namespace Prisma {
     id?: IntFilter<"UserSetting"> | number
     notificationsOn?: BoolFilter<"UserSetting"> | boolean
     smsOn?: BoolFilter<"UserSetting"> | boolean
+    userId?: IntFilter<"UserSetting"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type UserSettingOrderByWithRelationInput = {
     id?: SortOrder
     notificationsOn?: SortOrder
     smsOn?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
   export type UserSettingWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    userId?: number
     AND?: UserSettingWhereInput | UserSettingWhereInput[]
     OR?: UserSettingWhereInput[]
     NOT?: UserSettingWhereInput | UserSettingWhereInput[]
     notificationsOn?: BoolFilter<"UserSetting"> | boolean
     smsOn?: BoolFilter<"UserSetting"> | boolean
-  }, "id">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
 
   export type UserSettingOrderByWithAggregationInput = {
     id?: SortOrder
     notificationsOn?: SortOrder
     smsOn?: SortOrder
+    userId?: SortOrder
     _count?: UserSettingCountOrderByAggregateInput
     _avg?: UserSettingAvgOrderByAggregateInput
     _max?: UserSettingMaxOrderByAggregateInput
@@ -4268,6 +4427,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"UserSetting"> | number
     notificationsOn?: BoolWithAggregatesFilter<"UserSetting"> | boolean
     smsOn?: BoolWithAggregatesFilter<"UserSetting"> | boolean
+    userId?: IntWithAggregatesFilter<"UserSetting"> | number
   }
 
   export type PostWhereInput = {
@@ -4317,23 +4477,27 @@ export namespace Prisma {
   export type UserCreateInput = {
     username: string
     displayName?: string | null
+    userSetting?: UserSettingCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: number
     username: string
     displayName?: string | null
+    userSetting?: UserSettingUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
     username?: StringFieldUpdateOperationsInput | string
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    userSetting?: UserSettingUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    userSetting?: UserSettingUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -4356,29 +4520,34 @@ export namespace Prisma {
   export type UserSettingCreateInput = {
     notificationsOn?: boolean
     smsOn?: boolean
+    user: UserCreateNestedOneWithoutUserSettingInput
   }
 
   export type UserSettingUncheckedCreateInput = {
     id?: number
     notificationsOn?: boolean
     smsOn?: boolean
+    userId: number
   }
 
   export type UserSettingUpdateInput = {
     notificationsOn?: BoolFieldUpdateOperationsInput | boolean
     smsOn?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneRequiredWithoutUserSettingNestedInput
   }
 
   export type UserSettingUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     notificationsOn?: BoolFieldUpdateOperationsInput | boolean
     smsOn?: BoolFieldUpdateOperationsInput | boolean
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserSettingCreateManyInput = {
     id?: number
     notificationsOn?: boolean
     smsOn?: boolean
+    userId: number
   }
 
   export type UserSettingUpdateManyMutationInput = {
@@ -4390,6 +4559,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     notificationsOn?: BoolFieldUpdateOperationsInput | boolean
     smsOn?: BoolFieldUpdateOperationsInput | boolean
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostCreateInput = {
@@ -4470,6 +4640,11 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type UserSettingNullableScalarRelationFilter = {
+    is?: UserSettingWhereInput | null
+    isNot?: UserSettingWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -4560,30 +4735,40 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
   export type UserSettingCountOrderByAggregateInput = {
     id?: SortOrder
     notificationsOn?: SortOrder
     smsOn?: SortOrder
+    userId?: SortOrder
   }
 
   export type UserSettingAvgOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
   }
 
   export type UserSettingMaxOrderByAggregateInput = {
     id?: SortOrder
     notificationsOn?: SortOrder
     smsOn?: SortOrder
+    userId?: SortOrder
   }
 
   export type UserSettingMinOrderByAggregateInput = {
     id?: SortOrder
     notificationsOn?: SortOrder
     smsOn?: SortOrder
+    userId?: SortOrder
   }
 
   export type UserSettingSumOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -4620,12 +4805,34 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type UserSettingCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserSettingCreateWithoutUserInput, UserSettingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSettingCreateOrConnectWithoutUserInput
+    connect?: UserSettingWhereUniqueInput
+  }
+
+  export type UserSettingUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserSettingCreateWithoutUserInput, UserSettingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSettingCreateOrConnectWithoutUserInput
+    connect?: UserSettingWhereUniqueInput
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type UserSettingUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserSettingCreateWithoutUserInput, UserSettingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSettingCreateOrConnectWithoutUserInput
+    upsert?: UserSettingUpsertWithoutUserInput
+    disconnect?: UserSettingWhereInput | boolean
+    delete?: UserSettingWhereInput | boolean
+    connect?: UserSettingWhereUniqueInput
+    update?: XOR<XOR<UserSettingUpdateToOneWithWhereWithoutUserInput, UserSettingUpdateWithoutUserInput>, UserSettingUncheckedUpdateWithoutUserInput>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -4636,8 +4843,32 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type UserSettingUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserSettingCreateWithoutUserInput, UserSettingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSettingCreateOrConnectWithoutUserInput
+    upsert?: UserSettingUpsertWithoutUserInput
+    disconnect?: UserSettingWhereInput | boolean
+    delete?: UserSettingWhereInput | boolean
+    connect?: UserSettingWhereUniqueInput
+    update?: XOR<XOR<UserSettingUpdateToOneWithWhereWithoutUserInput, UserSettingUpdateWithoutUserInput>, UserSettingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserCreateNestedOneWithoutUserSettingInput = {
+    create?: XOR<UserCreateWithoutUserSettingInput, UserUncheckedCreateWithoutUserSettingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserSettingInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutUserSettingNestedInput = {
+    create?: XOR<UserCreateWithoutUserSettingInput, UserUncheckedCreateWithoutUserSettingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserSettingInput
+    upsert?: UserUpsertWithoutUserSettingInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserSettingInput, UserUpdateWithoutUserSettingInput>, UserUncheckedUpdateWithoutUserSettingInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -4762,6 +4993,82 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type UserSettingCreateWithoutUserInput = {
+    notificationsOn?: boolean
+    smsOn?: boolean
+  }
+
+  export type UserSettingUncheckedCreateWithoutUserInput = {
+    id?: number
+    notificationsOn?: boolean
+    smsOn?: boolean
+  }
+
+  export type UserSettingCreateOrConnectWithoutUserInput = {
+    where: UserSettingWhereUniqueInput
+    create: XOR<UserSettingCreateWithoutUserInput, UserSettingUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserSettingUpsertWithoutUserInput = {
+    update: XOR<UserSettingUpdateWithoutUserInput, UserSettingUncheckedUpdateWithoutUserInput>
+    create: XOR<UserSettingCreateWithoutUserInput, UserSettingUncheckedCreateWithoutUserInput>
+    where?: UserSettingWhereInput
+  }
+
+  export type UserSettingUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserSettingWhereInput
+    data: XOR<UserSettingUpdateWithoutUserInput, UserSettingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserSettingUpdateWithoutUserInput = {
+    notificationsOn?: BoolFieldUpdateOperationsInput | boolean
+    smsOn?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserSettingUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    notificationsOn?: BoolFieldUpdateOperationsInput | boolean
+    smsOn?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserCreateWithoutUserSettingInput = {
+    username: string
+    displayName?: string | null
+  }
+
+  export type UserUncheckedCreateWithoutUserSettingInput = {
+    id?: number
+    username: string
+    displayName?: string | null
+  }
+
+  export type UserCreateOrConnectWithoutUserSettingInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserSettingInput, UserUncheckedCreateWithoutUserSettingInput>
+  }
+
+  export type UserUpsertWithoutUserSettingInput = {
+    update: XOR<UserUpdateWithoutUserSettingInput, UserUncheckedUpdateWithoutUserSettingInput>
+    create: XOR<UserCreateWithoutUserSettingInput, UserUncheckedCreateWithoutUserSettingInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserSettingInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserSettingInput, UserUncheckedUpdateWithoutUserSettingInput>
+  }
+
+  export type UserUpdateWithoutUserSettingInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserUncheckedUpdateWithoutUserSettingInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

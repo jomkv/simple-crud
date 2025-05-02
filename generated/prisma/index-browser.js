@@ -126,7 +126,8 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.UserSettingScalarFieldEnum = {
   id: 'id',
   notificationsOn: 'notificationsOn',
-  smsOn: 'smsOn'
+  smsOn: 'smsOn',
+  userId: 'userId'
 };
 
 exports.Prisma.PostScalarFieldEnum = {
