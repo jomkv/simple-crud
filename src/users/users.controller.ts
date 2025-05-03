@@ -54,9 +54,12 @@ export class UsersController {
   @Patch(':id/settings')
   @UsePipes(ValidationPipe)
   updateUserSettings(
-    @Body() newUserSettings: UpdateSettingsDto,
+    @Body() updatedUserSettings: UpdateSettingsDto,
     @Param('id', ParseIntPipe, UserExistsPipe) user: User,
   ) {
-    // TODO
+    return this.usersService.updateUserSettingById(
+      user.id,
+      updatedUserSettings,
+    );
   }
 }
